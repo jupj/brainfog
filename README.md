@@ -1,3 +1,7 @@
-# Brainfog - a brainf\*\*\* interpreter written in Go
+# Brainfog
+_A brainf\*\*\* interpreter written in Go_
 
-Usage: brainfog code.bf
+Usage:
+```
+brainfog code.bf
+```
