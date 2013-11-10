@@ -2,11 +2,12 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
-	"os"
-	"path/filepath"
 	"fmt"
 	"io/ioutil"
+	"os"
+	"path/filepath"
 )
 
 // brainfog is an interpreter for the brainf*** language
@@ -144,6 +145,17 @@ func (bf *brainfog) run() {
 	close(bf.outCh)
 }
 
+// readInput reads os.Stdin and sends it over inCh
+func readInput(inCh chan byte) {
+	scanner := bufio.NewScanner(os.Stdin)
+	for scanner.Scan() {
+		input := scanner.Bytes()
+		for _, c := range input {
+			inCh <- c
+		}
+	}
+}
+
 func main() {
 	if len(os.Args) > 1 {
 		// Read bf code from file
@@ -154,6 +166,7 @@ func main() {
 		}
 
 		bf := newBrainfog(code)
+		go readInput(bf.inCh)
 		for c := range bf.outCh {
 			fmt.Printf("%c", c)
 		}
