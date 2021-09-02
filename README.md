@@ -3,5 +3,6 @@ _A brainf\*\*\* interpreter written in Go_
 
 Usage:
 ```
-brainfog code.bf
+$ brainfog hello.bf
+Hello World!
 ```
